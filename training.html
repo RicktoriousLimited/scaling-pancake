@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MS-NCB v4 Training Console</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0e1420;
+      color: #f2f4f8;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #141c2b;
+      padding: 1.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      margin: 0 0 0.25rem;
+      font-size: 1.75rem;
+    }
+    header p {
+      margin: 0;
+      color: #8aa0c4;
+    }
+    nav {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    nav a {
+      color: #d7e3ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      transition: background 0.2s ease, color 0.2s ease;
+      border: 1px solid transparent;
+    }
+    nav a:hover {
+      background: rgba(125, 160, 255, 0.2);
+    }
+    nav a.active {
+      background: linear-gradient(135deg, #2d8bff, #7b5bff);
+      border-color: rgba(125, 160, 255, 0.25);
+      color: #fff;
+    }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    section {
+      background: #161d2e;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    select,
+    textarea,
+    input[type="text"] {
+      border-radius: 12px;
+      border: 1px solid rgba(125, 160, 255, 0.2);
+      background: rgba(8, 12, 24, 0.9);
+      padding: 0.75rem;
+      color: inherit;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 3rem;
+    }
+    textarea {
+      min-height: 12rem;
+    }
+    .actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2d8bff, #7b5bff);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    button.secondary {
+      background: rgba(125, 160, 255, 0.15);
+      color: #d7e3ff;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    button:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(45, 139, 255, 0.35);
+    }
+    .stack-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      background: rgba(16, 26, 44, 0.8);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+    }
+    .stack-card {
+      border-radius: 12px;
+      padding: 1rem;
+      background: rgba(16, 26, 44, 0.8);
+      border: 1px solid rgba(125, 160, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .stack-card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      color: #7cd6ff;
+    }
+    .status {
+      border-radius: 12px;
+      padding: 1rem;
+      background: rgba(20, 30, 52, 0.8);
+      border: 1px solid rgba(125, 160, 255, 0.15);
+      font-family: 'Inter', sans-serif;
+      white-space: pre-wrap;
+      word-break: break-word;
+      min-height: 5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #7083a7;
+      font-size: 0.85rem;
+    }
+    .helper-text {
+      color: #8aa0c4;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    @media (max-width: 960px) {
+      main {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+      }
+      section {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>MS-NCB v4 Training Console</h1>
+      <p>Craft and submit incremental batches for each regression stack.</p>
+    </div>
+    <nav>
+      <a href="index.html">Chat</a>
+      <a href="training.html" class="active">Training</a>
+      <a href="docs/MS_NCB_v4_WhitePaper_RicktoriousLimited.pdf" target="_blank" rel="noreferrer">White Paper</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <div>
+        <h2>Submit Training Batch</h2>
+        <p class="helper-text">
+          Choose the target stack, drop in your JSON samples, and push incremental updates through the training endpoint.
+        </p>
+      </div>
+      <form id="training-form">
+        <label>
+          Target stack
+          <select id="stack-select" required></select>
+        </label>
+        <div class="stack-meta" id="stack-meta"></div>
+        <label>
+          Samples JSON
+          <textarea id="samples-input" placeholder='[
+  { "input": [], "target": [] }
+]' spellcheck="false"></textarea>
+        </label>
+        <p class="helper-text">
+          Provide an array of samples where each object includes <code>input</code> and <code>target</code> arrays. Use the button below to
+          prefill the official sample batch for the selected stack.
+        </p>
+        <div class="actions">
+          <button type="submit" id="submit-btn">Train stack</button>
+          <button type="button" class="secondary" id="load-samples">Load sample batch</button>
+          <button type="button" class="secondary" id="format-json">Format JSON</button>
+        </div>
+      </form>
+      <div>
+        <h2>Training response</h2>
+        <div class="status" id="training-status">Awaiting submission…</div>
+      </div>
+    </section>
+    <section>
+      <div>
+        <h2>Stack overview</h2>
+        <p class="helper-text">Reference the configuration to align your input and target vector sizes.</p>
+      </div>
+      <div id="stack-list" class="stack-list"></div>
+      <div>
+        <h2>JSON validator</h2>
+        <div class="status" id="validation-status">No validation run yet.</div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Updates are persisted in <code>data/config.json</code>. Review the
+    <a href="README.md">README</a> for full API usage.
+  </footer>
+  <script src="js/training.js"></script>
+</body>
+</html>
