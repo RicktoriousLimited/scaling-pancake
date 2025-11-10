@@ -88,11 +88,25 @@ class MultiModal
     private function buildInput(string $target, array $sourceOutputs, float $weight, array $context): array
     {
         $inputSize = $this->inputSizes[$target];
-        $base = array_slice($context[$target] ?? array_fill(0, $inputSize, 0.0), 0, $inputSize);
+        $base = $context[$target] ?? [];
+        if (!is_array($base)) {
+            $base = [];
+        }
+
+        $base = array_values($base);
+        if (count($base) < $inputSize) {
+            $base = array_merge($base, array_fill(0, $inputSize - count($base), 0.0));
+        }
+
         foreach ($sourceOutputs as $value) {
             $base[] = $value * $weight;
         }
-        return array_slice($base, 0, $inputSize);
+
+        if (count($base) > $inputSize) {
+            $base = array_slice($base, -$inputSize);
+        }
+
+        return $base;
     }
 
     /**

@@ -1,5 +1,8 @@
 [
   {
+    "prompt": "language sample",
+    "targetText": "fft resonance",
+    "explanation": "Baseline sample demonstrating how the FFT lattice encodes the phrase 'language sample' into the spectral response 'fft resonance'.",
     "input": [
       0.0021691875798361643,
       0.0019374458229040772,
@@ -43,6 +46,55 @@
       0.000233293215741499,
       0.001023136143329959,
       0.0010231361433299584
+    ]
+  },
+  {
+    "prompt": "hello there",
+    "targetText": "warm acknowledgement",
+    "explanation": "Maps a plain English greeting to a friendly acknowledgement using the same FFT feature lattice.",
+    "input": [
+      0.001,
+      0.0008,
+      0.0005,
+      0.0003,
+      0.0002,
+      0.0003,
+      0.0004,
+      0.0005,
+      0.0007,
+      0.0009,
+      0.001,
+      0.0009,
+      0.0007,
+      0.0005,
+      0.0003,
+      0.0002,
+      0.0003,
+      0.0005,
+      0.0007,
+      0.0009,
+      0.001,
+      0.0009,
+      0.0007,
+      0.0005,
+      0.0004,
+      0.0003,
+      0.0002,
+      0.0003,
+      0.0005,
+      0.0007,
+      0.0008,
+      0.001
+    ],
+    "target": [
+      0.002,
+      0.0015,
+      0.001,
+      0.0005,
+      0.0005,
+      0.001,
+      0.0015,
+      0.002
     ]
   }
 ]
