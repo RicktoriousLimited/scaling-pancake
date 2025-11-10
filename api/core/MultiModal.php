@@ -38,6 +38,11 @@ class MultiModal
         return $this->inputSizes[$stackName] ?? 0;
     }
 
+    public function getOutputSize(string $stackName): int
+    {
+        return $this->outputSizes[$stackName] ?? 0;
+    }
+
     /**
      * Process input for a target stack and collect all stack outputs.
      *

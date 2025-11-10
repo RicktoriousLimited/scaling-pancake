@@ -52,8 +52,8 @@ simple and avoids introducing additional runtime dependencies.
 
 - The `prompt` and `targetText` fields communicate the natural-language meaning of each sample.
 - The accompanying `explanation` field clarifies how the encoding relates to the lattice.
-- The numeric `input` and `target` arrays remain compatible with the existing training console and
-  REST interface.
+- The training console now derives FFT vectors on the fly, so only the human-readable text needs to
+  be stored alongside each sample.
 
 Two illustrative samples ship by default:
 

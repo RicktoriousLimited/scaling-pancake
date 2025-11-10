@@ -64,7 +64,7 @@ Use to apply incremental regression updates.
 {
   "stack": "language",
   "samples": [
-    { "input": [..], "target": [..] }
+    { "prompt": "language sample", "targetText": "fft resonance" }
   ]
 }
 ```
@@ -75,7 +75,8 @@ On success the updated weights are saved back to `data/config.json`.
 
 Sample datasets inside `data/` illustrate how to structure incremental updates per stack. They can be replayed by posting to `/api/train.php`.
 
-- `training_*.json` files: Raw regression pairs for the built-in stacks (language, context, emotion, audio).
+- `training_*.json` files: Raw regression pairs for the built-in stacks (language, context, emotion, audio). Language samples now
+  include natural-language `prompt`/`targetText` pairs that are encoded server-side before training.
 - `sample_payloads.json`: Ready-to-send payloads that show how to call `/api/respond.php` with a conversational input (including history seeding) and `/api/train.php` with a miniature training batch.
 
 To try them out, issue:
