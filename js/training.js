@@ -241,19 +241,23 @@ const validateSamples = (samples, stackName) => {
       throw new Error(`Sample at index ${index} is not an object.`);
     }
 
-    if (!Array.isArray(sample.input)) {
-      throw new Error(`Sample ${index} is missing an input array.`);
+    const hasInputArray = Array.isArray(sample.input);
+    const hasPromptText = typeof sample.prompt === 'string' && sample.prompt.trim() !== '';
+    if (!hasInputArray && !hasPromptText) {
+      throw new Error(`Sample ${index} must include either an input array or a prompt string.`);
     }
 
-    if (!Array.isArray(sample.target)) {
-      throw new Error(`Sample ${index} is missing a target array.`);
+    const hasTargetArray = Array.isArray(sample.target);
+    const hasTargetText = typeof sample.targetText === 'string' && sample.targetText.trim() !== '';
+    if (!hasTargetArray && !hasTargetText) {
+      throw new Error(`Sample ${index} must include either a target array or targetText string.`);
     }
 
-    if (sample.input.length !== meta.inputSize) {
+    if (hasInputArray && sample.input.length !== meta.inputSize) {
       throw new Error(`Sample ${index} input length (${sample.input.length}) does not match stack requirement (${meta.inputSize}).`);
     }
 
-    if (sample.target.length !== meta.outputSize) {
+    if (hasTargetArray && sample.target.length !== meta.outputSize) {
       throw new Error(`Sample ${index} target length (${sample.target.length}) does not match stack requirement (${meta.outputSize}).`);
     }
   });

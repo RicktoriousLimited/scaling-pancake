@@ -124,9 +124,9 @@ integration or pre-commit hooks.
   spectra via an FFT, forming the language stack's interpolation lattice.
 - The chat endpoint (`api/respond.php`) performs the FFT-based encoding for every request and uses an inverse transform to decode
   stack responses back into symbolic text snippets.
-- The training console auto-loads the refreshed `data/training_language.json` samples. Each entry now includes `prompt`,
-  `targetText`, and `explanation` fields so the encoded FFT vectors are accompanied by human-readable context (e.g., "language
-  sample" → "fft resonance" and "hello there" → "warm acknowledgement").
+- The training console auto-loads the refreshed `data/training_language.json` samples. Entries now only include `prompt`,
+  `targetText`, and `explanation` fields; the server encodes the FFT vectors just before training so the dataset stays
+  human-readable (e.g., "language sample" → "fft resonance" and "hello there" → "warm acknowledgement").
 
 ## Documentation
 

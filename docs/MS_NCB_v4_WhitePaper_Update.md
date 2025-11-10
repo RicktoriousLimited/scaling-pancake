@@ -48,12 +48,11 @@ simple and avoids introducing additional runtime dependencies.
 
 ## 3. Human-readable language training corpus
 
-`data/training_language.json` now exposes the FFT lattice samples in a dual format:
+`data/training_language.json` now exposes the FFT lattice samples as text-first payloads:
 
 - The `prompt` and `targetText` fields communicate the natural-language meaning of each sample.
 - The accompanying `explanation` field clarifies how the encoding relates to the lattice.
-- The numeric `input` and `target` arrays remain compatible with the existing training console and
-  REST interface.
+- Numeric FFT vectors are generated on demand by the training API, keeping the JSON corpus concise and reviewable.
 
 Two illustrative samples ship by default:
 
@@ -69,9 +68,9 @@ Two illustrative samples ship by default:
   stack to aid exploration.
 - **Continuous validation** – add `php tests/run.php` to your CI jobs or Git hooks to guarantee that
   stack propagation, learning, and persistence semantics stay intact as you extend the codebase.
-- **Extensibility** – when designing new stacks, pair each numeric sample with a `prompt` and
-  `targetText` narrative. This keeps datasets self-describing and makes it easier for non-technical
-  collaborators to review proposed training batches.
+- **Extensibility** – when designing new stacks, include a `prompt` and `targetText` narrative for
+  each training sample. Numeric arrays remain optional overlays, keeping datasets self-describing and
+  making it easier for non-technical collaborators to review proposed training batches.
 
 ## 5. Future work
 
