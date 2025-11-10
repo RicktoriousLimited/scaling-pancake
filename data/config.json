@@ -4,25 +4,45 @@
       "inputSize": 32,
       "outputSize": 8,
       "learningRate": 0.05,
-      "decay": 0.7
+      "decay": 0.7,
+      "neuroProfile": {
+        "signalModel": "phonetic resonance mesh",
+        "baselineSignal": 0.82,
+        "interpolation": "sound-based n-gram syllable sweep"
+      }
     },
     "emotion": {
       "inputSize": 8,
       "outputSize": 4,
       "learningRate": 0.04,
-      "decay": 0.85
+      "decay": 0.85,
+      "neuroProfile": {
+        "signalModel": "affective co-activation",
+        "baselineSignal": 0.74,
+        "interpolation": "tone-weighted gradient blending"
+      }
     },
     "context": {
       "inputSize": 8,
       "outputSize": 6,
       "learningRate": 0.03,
-      "decay": 0.9
+      "decay": 0.9,
+      "neuroProfile": {
+        "signalModel": "episodic threading",
+        "baselineSignal": 0.68,
+        "interpolation": "narrative frame recall"
+      }
     },
     "audio": {
       "inputSize": 8,
       "outputSize": 4,
       "learningRate": 0.04,
-      "decay": 0.8
+      "decay": 0.8,
+      "neuroProfile": {
+        "signalModel": "spectral pulse alignment",
+        "baselineSignal": 0.71,
+        "interpolation": "phoneme echo tracking"
+      }
     }
   }
 }
