@@ -30,6 +30,7 @@ index.html             # Front-end entry point
    php -S localhost:8080
    ```
 2. Open [http://localhost:8080](http://localhost:8080) in a browser to interact with the chat interface.
+3. Visit [`/training.html`](http://localhost:8080/training.html) for the incremental training console. It exposes configuration metadata, sample datasets, JSON validation, and a direct client for the `/api/train.php` endpoint.
 
 ## API
 
