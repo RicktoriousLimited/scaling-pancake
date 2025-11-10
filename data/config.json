@@ -1,0 +1,28 @@
+{
+  "stacks": {
+    "language": {
+      "inputSize": 32,
+      "outputSize": 8,
+      "learningRate": 0.05,
+      "decay": 0.7
+    },
+    "emotion": {
+      "inputSize": 8,
+      "outputSize": 4,
+      "learningRate": 0.04,
+      "decay": 0.85
+    },
+    "context": {
+      "inputSize": 8,
+      "outputSize": 6,
+      "learningRate": 0.03,
+      "decay": 0.9
+    },
+    "audio": {
+      "inputSize": 8,
+      "outputSize": 4,
+      "learningRate": 0.04,
+      "decay": 0.8
+    }
+  }
+}

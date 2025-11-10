@@ -1,0 +1,18 @@
+{
+  "connections": {
+    "language": {
+      "emotion": 0.6,
+      "context": 0.4
+    },
+    "emotion": {
+      "context": 0.5
+    },
+    "context": {
+      "language": 0.3
+    },
+    "audio": {
+      "emotion": 0.2,
+      "language": 0.1
+    }
+  }
+}
