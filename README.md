@@ -91,6 +91,18 @@ curl -X POST http://localhost:8080/api/train.php \
 
 The example requests are sized to remain compatible with the default `language` stack definition in `data/config.json`.
 
+## Testing
+
+Run the regression suite to ensure stack propagation, learning, and persistence behaviours remain stable:
+
+```bash
+php tests/run.php
+```
+
+The tests cover the regression neuron, stack decay dynamics, cross-stack activation routing, configuration persistence, and
+conversation history storage. They have no external dependencies beyond stock PHP, making them suitable for continuous
+integration or pre-commit hooks.
+
 ## Conversation Memory
 
 - Conversations are persisted under `data/conversations/` using the `conversationId` you supply.
@@ -111,9 +123,11 @@ The example requests are sized to remain compatible with the default `language` 
   spectra via an FFT, forming the language stack's interpolation lattice.
 - The chat endpoint (`api/respond.php`) performs the FFT-based encoding for every request and uses an inverse transform to decode
   stack responses back into symbolic text snippets.
-- The training console auto-loads the refreshed `data/training_language.json` sample, which demonstrates how the phrase "language
-  sample" maps to the response target "fft resonance" using the new encoding.
+- The training console auto-loads the refreshed `data/training_language.json` samples. Each entry now includes `prompt`,
+  `targetText`, and `explanation` fields so the encoded FFT vectors are accompanied by human-readable context (e.g., "language
+  sample" → "fft resonance" and "hello there" → "warm acknowledgement").
 
 ## Documentation
 
-See `docs/MS_NCB_v4_WhitePaper_RicktoriousLimited.pdf` for a white-paper style overview with diagrams and equations.
+See `docs/MS_NCB_v4_WhitePaper_RicktoriousLimited.pdf` for a white-paper style overview with diagrams and equations. A living
+addendum with expanded testing guidance and dataset details is available in `docs/MS_NCB_v4_WhitePaper_Update.md`.
