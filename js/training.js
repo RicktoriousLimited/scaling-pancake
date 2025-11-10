@@ -241,6 +241,21 @@ const validateSamples = (samples, stackName) => {
       throw new Error(`Sample at index ${index} is not an object.`);
     }
 
+    const hasPrompt = typeof sample.prompt === 'string';
+    const hasTargetText = typeof sample.targetText === 'string';
+
+    if (hasPrompt || hasTargetText) {
+      if (!hasPrompt || !hasTargetText) {
+        throw new Error(`Sample ${index} must include both prompt and targetText strings.`);
+      }
+
+      if (!sample.prompt.trim() || !sample.targetText.trim()) {
+        throw new Error(`Sample ${index} prompt and targetText cannot be empty.`);
+      }
+
+      return;
+    }
+
     if (!Array.isArray(sample.input)) {
       throw new Error(`Sample ${index} is missing an input array.`);
     }

@@ -289,12 +289,13 @@
         <label>
           Samples JSON
           <textarea id="samples-input" placeholder='[
-  { "input": [], "target": [] }
+  { "prompt": "language sample", "targetText": "fft resonance" }
 ]' spellcheck="false"></textarea>
         </label>
         <p class="helper-text">
-          Provide an array of samples where each object includes <code>input</code> and <code>target</code> arrays. Use the button below to
-          prefill the official sample batch for the selected stack.
+          Provide an array of samples. For language stacks you can now supply <code>prompt</code> and <code>targetText</code> fields—the console
+          will encode them into FFT vectors automatically. Other stacks continue to accept explicit <code>input</code> and <code>target</code>
+          arrays. Use the button below to prefill the official sample batch for the selected stack.
         </p>
         <div class="callout">
           <strong>Neuro-linguistic default:</strong>
