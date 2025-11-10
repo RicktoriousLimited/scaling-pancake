@@ -264,6 +264,9 @@ stackSelect.addEventListener('change', () => {
   renderInterconnects(stackSelect.value);
   renderNeuroHints(stackSelect.value);
   setValidation('Stack changed. Validate your payload before sending.');
+  if (stackSelect.value === 'language' && !samplesInput.value.trim()) {
+    loadSampleBatch();
+  }
 });
 
 loadSamplesBtn.addEventListener('click', () => {
@@ -326,6 +329,9 @@ const initialize = async () => {
     renderInterconnects(activeStack);
   }
   renderNeuroHints(activeStack);
+  if (activeStack === 'language' && !samplesInput.value.trim()) {
+    loadSampleBatch();
+  }
 };
 
 initialize();
