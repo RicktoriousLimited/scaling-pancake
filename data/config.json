@@ -8,7 +8,7 @@
       "neuroProfile": {
         "signalModel": "phonetic resonance mesh",
         "baselineSignal": 0.82,
-        "interpolation": "sound-based n-gram syllable sweep"
+        "interpolation": "fft-summed n-gram frequency lattice"
       }
     },
     "emotion": {

@@ -101,9 +101,18 @@ The example requests are sized to remain compatible with the default `language` 
 
 ## Extending the System
 
-- Edit `data/config.json` to add new stacks or tune learning rates and decay factors.  
-- Configure new inter-stack edges in `data/interconnect.json`.  
+- Edit `data/config.json` to add new stacks or tune learning rates and decay factors.
+- Configure new inter-stack edges in `data/interconnect.json`.
 - Create new `training_*.json` files to seed regression updates for custom stacks.
+
+## FFT n-gram interpolation (language stack)
+
+- Each latin letter is now assigned a unique binary-spaced base frequency. Sliding trigrams sum these bases and are converted to
+  spectra via an FFT, forming the language stack's interpolation lattice.
+- The chat endpoint (`api/respond.php`) performs the FFT-based encoding for every request and uses an inverse transform to decode
+  stack responses back into symbolic text snippets.
+- The training console auto-loads the refreshed `data/training_language.json` sample, which demonstrates how the phrase "language
+  sample" maps to the response target "fft resonance" using the new encoding.
 
 ## Documentation
 

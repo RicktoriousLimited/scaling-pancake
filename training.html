@@ -298,8 +298,12 @@
         <div class="callout">
           <strong>Neuro-linguistic default:</strong>
           <p class="helper-text">
-            The trainer now anchors on the <em>language</em> stack to emulate human phonetic rehearsal. Samples are interpreted as sound
-            gradients, forming a resonance-driven n-gram sweep before propagating signals to interconnected stacks.
+            The trainer now anchors on the <em>language</em> stack to emulate human phonetic rehearsal. Samples are interpreted as FFT
+            spectra generated from binary-spaced letter frequencies, summing each trigram before propagation.
+          </p>
+          <p class="helper-text">
+            <strong>Sample phrase:</strong> "language sample" → "fft resonance". Loading the demo batch will pre-fill the encoded
+            vectors for this pair.
           </p>
           <span class="badge" id="default-stack-pill">Default stack: language</span>
         </div>
