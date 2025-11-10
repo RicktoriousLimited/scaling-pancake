@@ -31,6 +31,7 @@ index.html             # Front-end entry point
    ```
 2. Open [http://localhost:8080](http://localhost:8080) in a browser to interact with the chat interface.
 3. Visit [`/training.html`](http://localhost:8080/training.html) for the incremental training console. It exposes configuration metadata, sample datasets, JSON validation, and a direct client for the `/api/train.php` endpoint.
+4. Use [`/diagnostics.html`](http://localhost:8080/diagnostics.html) to replay the bundled request/response samples and confirm that the responder and training pipelines are functioning end-to-end without needing any command-line tools.
 
 ## API
 

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MS-NCB v4 Diagnostics</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #141d2b 0%, #0c111d 60%, #080a12 100%);
+      color: #f5f7fb;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 1.5rem;
+      background: rgba(16, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.8rem;
+    }
+    header p {
+      margin: 0;
+      color: #8ea5cc;
+    }
+    nav {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #d7e3ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    nav a:hover {
+      background: rgba(125, 160, 255, 0.2);
+    }
+    nav a.active {
+      background: linear-gradient(135deg, #2d8bff, #7b5bff);
+      border-color: rgba(125, 160, 255, 0.25);
+      color: #fff;
+    }
+    main {
+      flex: 1;
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-sizing: border-box;
+    }
+    .callout {
+      border-radius: 18px;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(45, 139, 255, 0.12), rgba(123, 91, 255, 0.18));
+      border: 1px solid rgba(125, 160, 255, 0.25);
+      box-shadow: 0 18px 40px rgba(15, 25, 42, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .callout strong {
+      color: #7cd6ff;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: rgba(18, 26, 43, 0.92);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 18px 36px rgba(8, 12, 24, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 1px solid rgba(125, 160, 255, 0.12);
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      color: #c5d4ff;
+    }
+    .card p {
+      margin: 0;
+      color: #9fb2d9;
+    }
+    .sample {
+      background: rgba(10, 16, 30, 0.95);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #dbe7ff;
+      border: 1px solid rgba(125, 160, 255, 0.18);
+      max-height: 220px;
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+    button {
+      align-self: flex-start;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      background: linear-gradient(135deg, #2d8bff, #7b5bff);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    button.secondary {
+      background: rgba(125, 160, 255, 0.15);
+      color: #d7e3ff;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    button:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(45, 139, 255, 0.35);
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(124, 214, 255, 0.14);
+      color: #7cd6ff;
+      border: 1px solid rgba(124, 214, 255, 0.25);
+    }
+    .status.error {
+      background: rgba(255, 105, 105, 0.12);
+      color: #ffb6b6;
+      border-color: rgba(255, 105, 105, 0.25);
+    }
+    pre.output {
+      background: rgba(6, 10, 20, 0.95);
+      border-radius: 12px;
+      padding: 1rem;
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #e6ecff;
+      border: 1px solid rgba(125, 160, 255, 0.14);
+      max-height: 260px;
+      overflow: auto;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 720px) {
+      main {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MS-NCB v4 Diagnostics</h1>
+    <p>One-click health checks for the regression engine and its training pipeline.</p>
+    <nav>
+      <a href="index.html">Chat</a>
+      <a href="training.html">Training</a>
+      <a href="diagnostics.html" class="active">Diagnostics</a>
+      <a href="docs/MS_NCB_v4_WhitePaper_RicktoriousLimited.pdf" target="_blank" rel="noreferrer">White Paper</a>
+    </nav>
+  </header>
+  <main>
+    <section class="callout">
+      <div class="status" id="sample-status">Loading sample payloads…</div>
+      <p>
+        Use this console to exercise the <strong>/api/respond.php</strong> and <strong>/api/train.php</strong>
+        endpoints without writing curl commands. Each check replays the curated payloads from
+        <code>data/sample_payloads.json</code> so you can demonstrate that the model responds and trains in real time.
+      </p>
+    </section>
+    <section class="card-grid">
+      <article class="card" id="respond-card">
+        <h2>Response Endpoint Check</h2>
+        <p>Submit the bundled conversation sample to the language stack and inspect the reply plus stack activations.</p>
+        <div class="sample" id="respond-sample"></div>
+        <div class="card-footer">
+          <button id="run-respond" disabled>Run response check</button>
+          <span class="status" id="respond-status">Waiting for samples…</span>
+        </div>
+        <pre class="output" id="respond-output">Press “Run response check” to see live output.</pre>
+      </article>
+      <article class="card" id="train-card">
+        <h2>Training Pipeline Check</h2>
+        <p>Send the incremental batch to the language stack and confirm that the server acknowledges the update.</p>
+        <div class="sample" id="train-sample"></div>
+        <div class="card-footer">
+          <button id="run-train" disabled>Replay training batch</button>
+          <span class="status" id="train-status">Waiting for samples…</span>
+        </div>
+        <pre class="output" id="train-output">Run the training batch to view acknowledgement and config deltas.</pre>
+      </article>
+      <article class="card" id="snapshot-card">
+        <h2>Model Snapshot</h2>
+        <p>Inspect the persisted configuration to verify the latest saved weights and runtime metadata.</p>
+        <div class="card-footer">
+          <button id="refresh-config">Refresh configuration</button>
+          <span class="status" id="config-status">Last pulled: never</span>
+        </div>
+        <pre class="output" id="config-output">Click “Refresh configuration” to view a trimmed excerpt of data/config.json.</pre>
+      </article>
+    </section>
+  </main>
+  <script src="js/diagnostics.js"></script>
+</body>
+</html>
