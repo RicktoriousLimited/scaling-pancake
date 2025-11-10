@@ -2,17 +2,19 @@
   "connections": {
     "language": {
       "emotion": 0.6,
-      "context": 0.4
+      "context": 0.4,
+      "audio": 0.55
     },
     "emotion": {
       "context": 0.5
     },
     "context": {
-      "language": 0.3
+      "language": 0.3,
+      "audio": 0.25
     },
     "audio": {
       "emotion": 0.2,
-      "language": 0.1
+      "language": 0.45
     }
   }
 }
