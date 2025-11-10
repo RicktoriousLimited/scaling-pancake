@@ -3,6 +3,17 @@ const input = document.getElementById('chat-input');
 const messages = document.getElementById('messages');
 const stackVisuals = document.getElementById('stack-visuals');
 
+const conversationKey = 'msncb-conversation-id';
+const createConversationId = () => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return `conv-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+};
+
+let conversationId = localStorage.getItem(conversationKey) || createConversationId();
+localStorage.setItem(conversationKey, conversationId);
+
 const renderMessage = (text, type) => {
   const container = document.createElement('div');
   container.className = `message ${type}`;
@@ -34,6 +45,17 @@ const renderStackOutputs = (outputs) => {
   });
 };
 
+const resetButton = document.getElementById('reset-conversation');
+if (resetButton) {
+  resetButton.addEventListener('click', () => {
+    conversationId = createConversationId();
+    localStorage.setItem(conversationKey, conversationId);
+    messages.innerHTML = '';
+    stackVisuals.innerHTML = '';
+    renderMessage('Conversation memory reset. Starting fresh.', 'bot');
+  });
+}
+
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const text = input.value.trim();
@@ -46,10 +68,14 @@ form.addEventListener('submit', async (event) => {
     const response = await fetch('api/respond.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text })
+      body: JSON.stringify({ message: text, conversationId })
     });
     const data = await response.json();
     if (response.ok) {
+      if (data.conversationId) {
+        conversationId = data.conversationId;
+        localStorage.setItem(conversationKey, conversationId);
+      }
       renderMessage(data.message, 'bot');
       renderStackOutputs(data.outputs);
     } else {

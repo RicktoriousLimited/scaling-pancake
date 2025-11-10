@@ -95,6 +95,10 @@
       cursor: pointer;
       font-weight: 600;
     }
+    button.secondary {
+      background: rgba(125, 160, 255, 0.2);
+      color: #d7e3ff;
+    }
     button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
@@ -141,6 +145,7 @@
       <div class="messages" id="messages"></div>
       <form id="chat-form">
         <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off" required />
+        <button type="button" id="reset-conversation" class="secondary">Reset</button>
         <button type="submit">Send</button>
       </form>
     </section>

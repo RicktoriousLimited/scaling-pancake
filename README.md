@@ -40,11 +40,20 @@ Accepts:
 ```json
 {
   "message": "hello world",
-  "entryStack": "language" // optional, defaults to "language"
+  "entryStack": "language",       // optional, defaults to "language"
+  "conversationId": "thread-42",  // optional, persists regression state per thread
+  "history": [                     // optional, seed with prior dialogue turns
+    { "role": "user", "message": "hi there" },
+    { "role": "assistant", "message": "hello!" }
+  ]
 }
 ```
 
 Returns a reply plus all stack activations.
+
+Providing a `conversationId` lets the engine recall the decayed state of previous turns. When omitted the
+request is treated as stateless, unless a `history` seed is provided—in that case a new identifier will be generated
+and echoed back in the response so the conversation can be continued.
 
 ### `POST /api/train.php`
 
@@ -64,6 +73,31 @@ On success the updated weights are saved back to `data/config.json`.
 ## Training Data
 
 Sample datasets inside `data/` illustrate how to structure incremental updates per stack. They can be replayed by posting to `/api/train.php`.
+
+- `training_*.json` files: Raw regression pairs for the built-in stacks (language, context, emotion, audio).
+- `sample_payloads.json`: Ready-to-send payloads that show how to call `/api/respond.php` with a conversational input (including history seeding) and `/api/train.php` with a miniature training batch.
+
+To try them out, issue:
+
+```bash
+curl -X POST http://localhost:8080/api/respond.php \
+  -H 'Content-Type: application/json' \
+  -d @<(jq '.respondRequest.body' data/sample_payloads.json)
+
+curl -X POST http://localhost:8080/api/train.php \
+  -H 'Content-Type: application/json' \
+  -d @<(jq '.trainRequest.body' data/sample_payloads.json)
+```
+
+The example requests are sized to remain compatible with the default `language` stack definition in `data/config.json`.
+
+## Conversation Memory
+
+- Conversations are persisted under `data/conversations/` using the `conversationId` you supply.
+- Seed legacy transcripts by passing a `history` array; the request will blend those turns into the current encoding and
+  return the generated `conversationId` for future calls.
+- Use the "Reset" button in the chat UI to clear the browser's conversation key and begin a fresh session without
+  deleting the archived transcripts on disk.
 
 ## Extending the System
 
